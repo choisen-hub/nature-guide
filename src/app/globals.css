@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-card: #141414;
+  --bg-card-hover: #1a1a2e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* Card animations */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.creature-card {
+  background: var(--bg-card);
+  border: 1px solid #222;
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.creature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.creature-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 16px var(--accent-glow);
+}
+
+.creature-card:hover::before {
+  border-color: var(--accent);
+}
+
+.sushi-glow {
+  box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+  border-color: rgba(255, 107, 53, 0.3);
+}
+
+.sushi-glow:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 24px rgba(255, 107, 53, 0.4);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  animation: modalIn 0.25s ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Category colors */
+.cat-animals { --cat-color: #f59e0b; }
+.cat-birds { --cat-color: #3b82f6; }
+.cat-fish { --cat-color: #06b6d4; }
+.cat-trees { --cat-color: #22c55e; }
+.cat-flowers { --cat-color: #ec4899; }
+.cat-mushrooms { --cat-color: #a855f7; }
+
+.cat-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: color-mix(in srgb, var(--cat-color) 15%, transparent);
+  color: var(--cat-color);
+  border: 1px solid color-mix(in srgb, var(--cat-color) 30%, transparent);
+}
+
+.emoji-icon {
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Tab bar */
+.tab-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid #333;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover { border-color: #555; color: #ccc; }
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+.tab-btn.sushi-active { background: #ff6b35; border-color: #ff6b35; color: white; }
